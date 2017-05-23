@@ -1,3 +1,11 @@
+//todo use  block scoping (let)
+//todo use spread / rest operator
+//todo use default settings
+//todo use string interpolation
+//todo use arrow functions
+//todo use classes + inheritance + super
+
+
 class Fighter{
     constructor(name, power, health) {
         this.name = name;
