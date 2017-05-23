@@ -32,9 +32,6 @@ class ImprovedFighter extends Fighter {
 }
 
 function fight(fighter, improvedFighter, ...point) {
-    console.log(fighter);
-    console.log(improvedFighter);
-    console.log(point);
     let round = 0;
     let fighting = true;
     let pointsCount = point.length;
@@ -43,22 +40,19 @@ function fight(fighter, improvedFighter, ...point) {
         let currentPoint = point[round % pointsCount];
         if (round % 2 === 0) {
             currentFighter = fighter;
-            console.log(fighter);
             enemyHealth = fighter.hit(improvedFighter, currentPoint);
-            console.log(improvedFighter);
         } else {
-            console.log(improvedFighter.name);
             currentFighter = improvedFighter;
             enemyHealth = improvedFighter.hit(fighter, currentPoint);
         }
         if (enemyHealth <= 0) {
             console.log(currentFighter.name + " wins at " + round + " round");
             fighting = false;
+            return true;
         }
-
         round++;
     }
-    return true;
+    return false;
 }
 
 let fighter1 = new Fighter('Captain America', 1, 90);
