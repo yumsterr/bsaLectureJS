@@ -1,10 +1,3 @@
-//todo use  block scoping (let)             done
-//todo use spread / rest operator   rest    done
-//todo use default settings                 done
-//todo use string interpolation             done
-//todo use arrow functions                  done
-//todo use classes + inheritance + super    done
-
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
