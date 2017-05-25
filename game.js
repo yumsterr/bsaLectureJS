@@ -34,7 +34,6 @@ class ImprovedFighter extends Fighter {
 let fight = (fighter, improvedFighter, ...point) => {
     let round = 0;
     let fighting = true;
-    let pointsCount = point.length;
     let enemyHealth, currentFighter;
     while (fighting === true) {
         let pointID = getRandomInt(0, point.length);
