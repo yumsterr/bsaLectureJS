@@ -1,43 +1,51 @@
-//todo use  block scoping (let)
-//todo use spread / rest operator    rest done
-//todo use default settings
-//todo use string interpolation
-//todo use arrow functions
+//todo use  block scoping (let)             done
+//todo use spread / rest operator   rest    done
+//todo use default settings                 done
+//todo use string interpolation             done
+//todo use arrow functions                  done
 //todo use classes + inheritance + super    done
 
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
 
 class Fighter {
-    constructor(name, power, health) {
+    constructor(name, power = 20, health = 200) {
         this.name = name;
         this.power = power;
         this.health = health;
     }
 
-    setDamage(damage) {
+    setDamage(damage, enemy) {
         this.health -= damage;
+        console.log(`${enemy.name} hits ${this.name} with ${damage} points of damage. His health after hit = ${this.health}`);
+
     }
 
     hit(enemy, point) {
         let damage = point * this.power;
-        enemy.setDamage(damage);
+        enemy.setDamage(damage, this);
         return enemy.health;
     }
-};
+}
+;
 
 class ImprovedFighter extends Fighter {
     hit(enemy, point) {
         let newPoint = point * 2;
         super.hit(enemy, newPoint);
+        return enemy.health;
     }
 }
 
-function fight(fighter, improvedFighter, ...point) {
+let fight = (fighter, improvedFighter, ...point) => {
     let round = 0;
     let fighting = true;
     let pointsCount = point.length;
     let enemyHealth, currentFighter;
     while (fighting === true) {
-        let currentPoint = point[round % pointsCount];
+        let pointID = getRandomInt(0, point.length);
+        let currentPoint = point[pointID];
         if (round % 2 === 0) {
             currentFighter = fighter;
             enemyHealth = fighter.hit(improvedFighter, currentPoint);
@@ -46,15 +54,26 @@ function fight(fighter, improvedFighter, ...point) {
             enemyHealth = improvedFighter.hit(fighter, currentPoint);
         }
         if (enemyHealth <= 0) {
-            console.log(currentFighter.name + " wins at " + round + " round");
+            let winner = currentFighter;
+            console.log(`${currentFighter.name} won at ${round} round`);
             fighting = false;
             return true;
         }
         round++;
     }
-    return false;
-}
+    return currentFighter;
+};
 
-let fighter1 = new Fighter('Captain America', 1, 90);
-let fighter2 = new ImprovedFighter('Iron Man', 2, 70);
-fight(fighter1, fighter2, 25, 13, 45, 23);
+let marvelTeam = ['Captain America', 'Irpn Man', 'Thor', 'Hulk', 'Spider-Man'];
+let dcTeam = ['Superman', 'Batman', 'Wonder Woman', 'Green Lantern', 'Nightwing', 'Flash'];
+
+let heroID = getRandomInt(0, marvelTeam.length);
+let marvelHero = marvelTeam[heroID];
+
+heroID = getRandomInt(0, dcTeam.length);
+let dcHero = dcTeam[heroID];
+
+let marvelFighter = new ImprovedFighter(marvelHero, 15, 750);
+let dcFighter = new Fighter(dcHero, 20, 500);
+
+let winner = fight(marvelFighter, dcFighter, 2, 1, 4, 2, 2, 1);
