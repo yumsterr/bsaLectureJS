@@ -24,14 +24,14 @@ class Fighter {
 ;
 
 class ImprovedFighter extends Fighter {
-    hit(enemy, point) {
+    doubleHit(enemy, point) {
         let newPoint = point * 2;
         super.hit(enemy, newPoint);
         return enemy.health;
     }
 }
 
-let fight = (fighter, improvedFighter, ...point) => {
+let fight = (improvedFighter,fighter, ...point) => {
     let round = 0;
     let fighting = true;
     let enemyHealth, currentFighter;
@@ -43,7 +43,7 @@ let fight = (fighter, improvedFighter, ...point) => {
             enemyHealth = fighter.hit(improvedFighter, currentPoint);
         } else {
             currentFighter = improvedFighter;
-            enemyHealth = improvedFighter.hit(fighter, currentPoint);
+            enemyHealth = improvedFighter.doubleHit(fighter, currentPoint);
         }
         if (enemyHealth <= 0) {
             let winner = currentFighter;
